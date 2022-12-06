@@ -1,13 +1,12 @@
 package com.nhnghia.util;
 
-import java.io.UnsupportedEncodingException;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Base64;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 
 public class TokenUtil {
 
@@ -17,8 +16,7 @@ public class TokenUtil {
 		byte[] plainTextByte = plainText.getBytes();
 		cipher.init(Cipher.ENCRYPT_MODE, secretKey);
 		byte[] encryptedByte = cipher.doFinal(plainTextByte);
-		String encryptedText = Base64.getUrlEncoder().encodeToString(encryptedByte);
-		return encryptedText;
+		return Base64.getUrlEncoder().encodeToString(encryptedByte);
 	}
 
 	public static String decrypt(String encryptedText, String strSecretKey) throws Exception {
@@ -27,22 +25,18 @@ public class TokenUtil {
 		byte[] encryptedTextByte = Base64.getUrlDecoder().decode(encryptedText);
 		cipher.init(Cipher.DECRYPT_MODE, secretKey);
 		byte[] decryptedByte = cipher.doFinal(encryptedTextByte);
-		String decryptedText = new String(decryptedByte);
-		return decryptedText;
+		return new String(decryptedByte);
 	}
 
 	private static SecretKeySpec createKey(String myKey) {
-		MessageDigest sha = null;
+		MessageDigest sha;
 		try {
-			byte[] key = myKey.getBytes("UTF-8");
+			byte[] key = myKey.getBytes(StandardCharsets.UTF_8);
 			sha = MessageDigest.getInstance("SHA-1");
 			key = sha.digest(key);
 			key = Arrays.copyOf(key, 16);
-			SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
-			return secretKey;
+			return new SecretKeySpec(key, "AES");
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return null;
