@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import javax.mail.internet.MimeMessage;
 
@@ -45,19 +43,18 @@ public class EmailServiceImpl implements EmailService {
 	private JavaMailSender javaMailSender;
 
 	@Override
-	@Scheduled(cron = "0 59 15 * * ?")
+	@Scheduled(cron = "0 0 8 * * ?")
 	public void sendNotificationEmail() {
 		
 		List<String> emailList = new ArrayList<>();
-		emailList.add("nghianguyenhuu848@gmail.com");
-//		emailList.add("nh.nghia@outlook.com");
+		emailList.add("nh.nghia@outlook.com");
 		
 		String[] emailArr  = emailList.toArray(new String[0]);
 		
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(emailArr);
 		message.setSubject("Notification email");
-		message.setText("Test notification email");
+		message.setText("Test notification email " + new Date());
 		this.javaMailSender.send(message);
 
 	}
@@ -69,7 +66,7 @@ public class EmailServiceImpl implements EmailService {
 		LOGGER.info("Begin Service SendMailServiceImpl Function sendVerifyEmail");
 		LOGGER.info("Service SendMailServiceImpl Function sendVerifyEmail PARAMS email: " + email);
 		try {
-			File file = new File(getClass().getClassLoader().getResource("emailVerify.html").getFile());
+			File file = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("emailVerify.html")).getFile());
 			String fileStr = file.toString();
 			String fileDecode = URLDecoder.decode(fileStr, "UTF-8");
 			File fileFinal = new File(fileDecode);
@@ -116,7 +113,7 @@ public class EmailServiceImpl implements EmailService {
 		LOGGER.info("Begin Service SendMailServiceImpl Function sendResetPasswordEmail");
 		LOGGER.info("Service SendMailServiceImpl Function sendResetPasswordEmail PARAMS email: " + email);
 		try {
-			File file = new File(getClass().getClassLoader().getResource("resetPassword.html").getFile());
+			File file = new File(Objects.requireNonNull(getClass().getClassLoader().getResource("resetPassword.html")).getFile());
 			String fileStr = file.toString();
 			String fileDecode = URLDecoder.decode(fileStr, "UTF-8");
 			File fileFinal = new File(fileDecode);
@@ -141,7 +138,7 @@ public class EmailServiceImpl implements EmailService {
 			String emailContent = contentBuilder.toString();
 			token = TokenUtil.encrypt(token, secretKey);
 			
-			String fullEmailContent = emailContent.replace("resetPasswordLink", this.url + "resetpassword?token=" + token);
+			String fullEmailContent = emailContent.replace("resetPasswordLink", this.url + "resetPassword?token=" + token);
 			messageHelper.setText(fullEmailContent, true);
 
 			javaMailSender.send(message);

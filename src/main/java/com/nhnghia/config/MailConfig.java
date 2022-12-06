@@ -22,10 +22,10 @@ public class MailConfig {
 
 		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		mailSender.setDefaultEncoding("UTF-8");
-//		mailSender.setHost("smtp.gmail.com");
-//		mailSender.setPort(587);
-		mailSender.setHost("smtp.mailtrap.io");
-		mailSender.setPort(25);
+		mailSender.setHost("smtp.gmail.com");
+		mailSender.setPort(587);
+//		mailSender.setHost("smtp.mailtrap.io");
+//		mailSender.setPort(25);
 		mailSender.setUsername(this.emailAddress);
 		mailSender.setPassword(this.emailPassword);
 

@@ -31,7 +31,7 @@ public class SwaggerConfig {
 				.title("Spring Security JWT API")
 				.version("1.0")
 				.description("API for Spring Security JWT application")
-				.contact(new Contact("Nguyen Huu Nghia", "asd.com", "asd@gmail.com"))
+				.contact(new Contact("Nguyen Huu Nghia", "#.com", "nghia.dev2021@gmail.com"))
 				.license("Apache License Version 2.0")
 				.build();
 	}

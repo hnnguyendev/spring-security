@@ -54,5 +54,5 @@ app:
 #    frontend: http://localhost:3000/
     frontend: https://eager-ptolemy-4e1bcb.netlify.app/
   email:
-    address: d76c9b1e8cfe1f
-    password: bee963c7ebf695
+    address:
+    password:
