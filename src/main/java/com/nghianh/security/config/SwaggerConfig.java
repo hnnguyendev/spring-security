@@ -28,10 +28,10 @@ public class SwaggerConfig {
 	
 	private ApiInfo getApiInfo() {
 		return new ApiInfoBuilder()
-				.title("Spring Security JWT API")
+				.title("Spring Security API")
 				.version("1.0")
-				.description("API for Spring Security JWT application")
-				.contact(new Contact("Nguyen Huu Nghia", "asd.com", "asd@gmail.com"))
+				.description("API for Spring Security application")
+				.contact(new Contact("Nguyen Huu Nghia", "url.url", "email@email.email"))
 				.license("Apache License Version 2.0")
 				.build();
 	}

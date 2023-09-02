@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  springboot:
+  spring-security-app:
     container_name: spring-security-app
     image: spring-security:v1.0.0
     restart: always
@@ -9,11 +9,9 @@ services:
       #      - "8000-8999:8080"
       #      - "9090:8080"
       - "$SPRING_HOST_PORT:$SPRING_CONTAINER_PORT"
+    depends_on:
+      - spring-security-mysql
     environment:
-      #      MYSQL_HOST: mysql-db
-      #      MYSQL_USER: root
-      #      MYSQL_PASSWORD: root
-      #      MYSQL_PORT: 3306
       MYSQL_HOST: $ENV_MYSQL_HOST
       MYSQL_USER: $ENV_MYSQL_USER
       MYSQL_PASSWORD: $ENV_MYSQL_PASSWORD
@@ -23,7 +21,7 @@ services:
     networks:
       - spring-network
     env_file: ./.env
-  mysql:
+  spring-security-mysql:
     container_name: spring-security-db
     image: mysql:8.0.30
     restart: always
@@ -31,21 +29,20 @@ services:
       #      - "3307:3306"
       - "$MYSQl_HOST_PORT:$MYSQl_CONTAINER_PORT"
     environment:
-      #      MYSQL_ROOT_PASSWORD: root
-      #      MYSQL_DATABASE: mysql_docker_db
       MYSQL_ROOT_PASSWORD: $ENV_MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $ENV_MYSQL_DATABASE
     #    volumes:
-    #      - C:\Users\DN-009\Downloads\db-data:/var/lib/mysql
+    #      - C:\Users\Nguyen Huu Nghia\Downloads\db-data:/var/lib/mysql
     volumes:
-      - /Users/nguyenhuunghia/Workspace/temp/db-data:/var/lib/mysql
-      - /Users/nguyenhuunghia/Workspace/temp/config-daemon-data:/etc/mysql/conf.d
+      - /Users/nguyenhuunghia/Workspace/temp/spring-security/db-data:/var/lib/mysql
+      - /Users/nguyenhuunghia/Workspace/temp/spring-security/config-daemon-data:/etc/mysql/conf.d
     networks:
       - spring-network
     env_file: ./.env
 networks:
   spring-network:
     name: spring-security-net
+    driver: bridge
 volumes:
   db-data:
   config-daemon-data:

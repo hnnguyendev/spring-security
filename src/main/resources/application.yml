@@ -17,8 +17,8 @@ spring:
 #  mail:
 #    default-encoding: UTF-8
 #    host: smtp.gmail.com
-#    username: yourgamil@gmail.com
-#    password: youremailpassword
+#    username: email@email.email
+#    password: password
 #    port: 587
 #    properties:
 #      mail:
@@ -47,16 +47,16 @@ app:
       expiration: 7200000 # 120 minutes duration by default: 2 hours * 60 minutes * 60 seconds * 1000 milliseconds
   cors: 
 #    allowedOrigins: http://localhost:3000
-    allowedOrigins: https://eager-ptolemy-4e1bcb.netlify.app
+    allowedOrigins:
   url:
 #    base: http://localhost:8080/
-    base: https://nhnghia-jwt-war.herokuapp.com/
+    base:
 #    frontend: http://localhost:3000/
-    frontend: https://eager-ptolemy-4e1bcb.netlify.app/
+    frontend:
   email:
+    #    host: smtp.mailtrap.io
+    #    port: 25
     host: smtp.gmail.com
-#    host: smtp.mailtrap.io
     port: 587
-#    port: 25
-    address: nghia.dev2021@gmail.com
-    password: riymsakrnlhepcoz
+    address:
+    password:
